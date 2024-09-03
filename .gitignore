@@ -6,5 +6,6 @@
 *.log
 *.tsbuildinfo
 dist
+!packages/json-schema/dist
 dist-test
 node_modules
