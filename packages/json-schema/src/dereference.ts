@@ -83,9 +83,8 @@ export function dereference(
   basePointer = ''
 ): Record<string, Schema | boolean> {
   // Intellisplash: Inject a default for baseURI
-  if (!baseURI) 
-    baseURI = new URL('https://intellisplash.com');
-  
+  if (!baseURI) baseURI = new URL('https://intellisplash.com');
+
   if (schema && typeof schema === 'object' && !Array.isArray(schema)) {
     const id: string = schema.$id || schema.id;
     if (id) {
