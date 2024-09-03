@@ -34,7 +34,8 @@
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "pretest": "node --experimental-import-meta-resolve suite-gen.js && esbuild test/test.ts --target=esnext --bundle --format=esm --conditions=worker,browser --outdir=dist-test --ignore-annotations",
-    "test": "node ../../test.mjs"
+    "test": "node ../../test.mjs",
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "@types/chai": "^4.3.17",
