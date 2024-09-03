@@ -1,3 +1,4 @@
+import { URL } from 'url'; // Intellisplash: add for Moddable XS
 import { encodePointer } from './pointer.js';
 import { Schema } from './types.js';
 
@@ -65,21 +66,26 @@ export const ignoredKeyword: Record<string, boolean> = {
  * https://json-schema.org/draft/2019-09/json-schema-core.html#initial-base
  * https://tools.ietf.org/html/rfc3986#section-5.1
  */
-export let initialBaseURI: URL =
-  // @ts-ignore
-  typeof self !== 'undefined' &&
-  self.location &&
-  self.location.origin !== 'null'
-    ? //@ts-ignore
-      new URL(self.location.origin + self.location.pathname + location.search)
-    : new URL('https://github.com/cfworker');
+// Intellisplash: remove as URL is not Moddable XS preload safe
+// export let initialBaseURI: URL =
+//   // @ts-ignore
+//   typeof self !== 'undefined' &&
+//   self.location &&
+//   self.location.origin !== 'null'
+//     ? //@ts-ignore
+//       new URL(self.location.origin + self.location.pathname + location.search)
+//     : new URL('https://github.com/cfworker');
 
 export function dereference(
   schema: Schema | boolean,
   lookup: Record<string, Schema | boolean> = Object.create(null),
-  baseURI: URL = initialBaseURI,
+  baseURI: URL | undefined = undefined, // Intellispash: add change default to undefined
   basePointer = ''
 ): Record<string, Schema | boolean> {
+  // Intellisplash: Inject a default for baseURI
+  if (!baseURI) 
+    baseURI = new URL('https://intellisplash.com');
+  
   if (schema && typeof schema === 'object' && !Array.isArray(schema)) {
     const id: string = schema.$id || schema.id;
     if (id) {
